@@ -8,6 +8,4 @@ class Activity
   field :option1, type: Time
   field :option2, type: Time
   field :option3, type: Time
-
-  field :option
 end
