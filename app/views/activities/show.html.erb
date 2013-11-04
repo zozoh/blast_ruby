@@ -17,6 +17,23 @@
 <% end %>
 </div>
 
+<table class="table table-bordered">
+  <% @activity.options.each do |o| %>
+    <tr>
+      <td><%= o.option %></td>
+      <td>
+        <table>
+            <% o.users.each do |u| %>
+              <tr>
+                <td><%= u.name %></td>
+              </tr>
+            <% end %> 
+        </table>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),
               activities_path, :class => 'btn'  %>
