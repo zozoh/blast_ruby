@@ -5,6 +5,7 @@ class Activity
   has_many :options, :class_name => 'ActivityOption'
 
   field :name, type: String
+  field :url, type: String
   field :option1, type: Time
   field :option2, type: Time
   field :option3, type: Time

@@ -30,6 +30,8 @@ gem 'jquery-rails'
 
 gem 'simple_form'
 
+gem 'googl'
+
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 
@@ -47,6 +49,9 @@ group :development, :test do
   gem 'guard-rspec'
   gem 'guard-spork'
   gem 'spork'
+
+  #Debugger
+  gem 'pry'
 end
 
 group :test do
