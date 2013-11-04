@@ -11,7 +11,6 @@ class ActivitiesController < ApplicationController
   # GET /activities/1.json
   def show
     @user = User.new
-    @users = @activity.users
   end
 
   def save
@@ -30,6 +29,9 @@ class ActivitiesController < ApplicationController
   # POST /activities.json
   def create
     @activity = Activity.new(activity_params)
+    ActivityOption.create(:option => @activity.option1, :activity_id => @activity.id)
+    ActivityOption.create(:option => @activity.option2, :activity_id => @activity.id)
+    ActivityOption.create(:option => @activity.option3, :activity_id => @activity.id)
 
     respond_to do |format|
       if @activity.save
