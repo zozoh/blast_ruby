@@ -1,5 +1,5 @@
 class ActivitiesController < ApplicationController
-  before_action :set_activity, only: [:show, :edit, :update, :destroy]
+  before_action :set_activity, only: [:save, :show, :edit, :update, :destroy]
 
   # GET /activities
   # GET /activities.json
@@ -14,6 +14,10 @@ class ActivitiesController < ApplicationController
   end
 
   def save
+    @option = ActivityOption.find(activity_params['options'])
+    ActivityOptionUser.create(:name => activity_params['user']['name'], :selected_option_id => @option.id)
+
+    redirect_to @activity
   end
 
   # GET /activities/new
@@ -76,6 +80,6 @@ class ActivitiesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def activity_params
-      params.require(:activity).permit(:name, :option1, :option2, :option3)
+      params.require(:activity).permit!
     end
 end

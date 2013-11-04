@@ -8,8 +8,10 @@
   <dd><%= @activity.name %></dd>
 </dl>
 <div>
-<%= simple_form_for @activity, :html => { :class => 'form-horizontal' } do |f| %>
-  <%= f.text_field :name, :class => 'text_field' %>
+<%= simple_form_for @activity, :html => { :class => 'form-horizontal' }, :url => save_activity_path(@activity) do |f| %>
+  <%= f.simple_fields_for :user do |u| %>
+    <%= u.input :name %>
+  <% end %>
   <%= f.input :options, :collection => @activity.options.map{ |c| [c.option, c.id] } , :as => :radio_buttons %>
   <%= f.submit nil, :class => 'btn btn-success' %>
 <% end %>

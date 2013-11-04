@@ -1,7 +1,7 @@
 Event::Application.routes.draw do
   resources :activities do
     member do
-      get :save
+      patch :save
     end
 
     resources :users
