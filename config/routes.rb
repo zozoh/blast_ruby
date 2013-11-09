@@ -1,4 +1,6 @@
 Event::Application.routes.draw do
+  resources :tokens
+
   resources :activities do
     member do
       patch :save
@@ -63,4 +65,7 @@ Event::Application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+  
+  require 'api'
+  mount Event::API => "/"
 end

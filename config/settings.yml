@@ -1,0 +1,78 @@
+# -*- yaml -*-
+defaults: &defaults
+  name: 'GatherBox'
+  shortname: 'GatherBox'
+  time_zone: 'HongKong'
+  default_locale: 'zh-HK'
+  time_format: '%Y-%m-%d %H:%M %p'
+  admin_users:
+    - "sanvilu"
+    - "harryng"
+  # Google Cloud Messaging API Key
+  gcm_api_key: 'AIzaSyCVv077P8BxNv0rclBFlT9zV-pSq4FgNZE'
+
+  # Apple Push Notification Service
+  apns_host: 'gateway.push.apple.com'
+  apns_path: '/var/cert/push_apns_prod.pem'
+
+  host: 'gatherbox.io'
+  static_folder: '/public'
+
+  email: &email
+    from: 'GatherBox <app@gatherbox.io>'
+
+    exception_recipients:
+      - 'harryworld@gmail.com'
+
+    delivery_method: :smtp
+
+    smtp_settings:
+      # Sendgrid
+      user_name: '666666'
+      password: '666666'
+      domain: 'gatherbox.io'
+      address: 'smtp.sendgrid.net'
+      port: 587
+      authentication: :plain
+      enable_starttls_auto: true
+
+    # settings for delivery_method 'sendmail'
+    sendmail_settings:
+      location: /usr/sbin/sendmail
+      arguments: '-i -t'
+
+development:
+  <<: *defaults
+  apns_host: 'gateway.sandbox.push.apple.com'
+  apns_path: '/Users/Midland/Dropbox/AppStore/certificate/MAM/pem'
+
+  sms: []
+  email:
+    <<: *email
+    from: 'mam-dev <dev@gatherbox.io>'
+    delivery_method: :file
+
+test:
+  <<: *defaults
+  host: 'localhost:3000'
+  apns_path: 'spec/factories/data/cert.pem'
+
+  sms: []
+  email:
+    <<: *email
+    from: 'test@gatherbox.io'
+    delivery_method: :test
+
+production:
+  <<: *defaults
+
+  # Generate a secret setting for production and do not share it in public repo
+  #
+  # The token must be at least 30 characters, otherwise the default on in
+  # config/initializers/secret_token.rb is used.
+  #
+  # The option `secret_key_base` is for Rails 4. Set it and keep the original
+  # `secret_token` setting.
+  #
+  # secret_token: ''
+  # secret_key_base: ''

@@ -6,6 +6,17 @@ gem 'rails', '4.0.0'
 # Use sqlite3 as the database for Active Record
 # gem 'sqlite3'
 
+# Push Notification
+gem 'apns'
+gem 'gcm'
+
+# Settings
+gem 'settingslogic'
+
+#api
+gem 'grape'
+gem 'grape-entity'
+
 # Use mongodb
 gem 'mongoid', git: 'git://github.com/mongoid/mongoid.git'
 

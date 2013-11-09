@@ -5,5 +5,6 @@ class User
   belongs_to :activity
 
   field :name, type: String
+  field :username, type: String
   field :option
 end
