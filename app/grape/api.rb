@@ -13,7 +13,7 @@ module Event
       get do
         required_attributes! [:type]
         @activities = Activity.where({})
-        present @activities, :with => APIEntities::Activity
+        present @activities, :with => APIEntities::SimpleActivity
       end
 
       desc "Get Activity Types"
@@ -38,7 +38,7 @@ module Event
         @activity.option1 = params[:option1]
         @activity.option2 = params[:option2]
         @activity.option3 = params[:option3]
-        
+
         @user = User.where(:username => params[:creator]).first
         @activity.creator = @user
 

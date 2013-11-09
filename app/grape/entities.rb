@@ -17,9 +17,12 @@ module Event
       expose :user, using: APIEntities::User
     end
 
-    class Activity < Grape::Entity
-      expose :id, :name, :activity_type, :creator
+    class SimpleActivity < Grape::Entity
+      expose :id, :name, :activity_type
       expose :creator, using: APIEntities::User
+    end
+
+    class Activity < APIEntities::SimpleActivity
       expose :options, using: APIEntities::ActivityOption
       expose :invited_users, using: APIEntities::ActivityUser
     end
