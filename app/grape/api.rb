@@ -9,11 +9,17 @@ module Event
     helpers APIHelpers
 
     resource :activities do
+      desc "Get Activity Types"
       desc "Get Activity List"
       get do
         required_attributes! [:type]
         @activities = Activity.where({})
         present @activities, :with => APIEntities::Activity
+      end
+
+      get "types" do
+        @types = ActivityType.all
+        present @types, :with => APIEntities::ActivityType
       end
 
       desc "Get one Activity"
@@ -40,6 +46,28 @@ module Event
         if @activity.save
           present @activity, :with => APIEntities::Activity
         end
+      end
+
+      desc "Vote for Activity with JSON request"
+      post "vote" do
+        required_attributes! [:options, :username]
+        params[:options].each do |o|
+          @option = ActivityOption.find(o.to_s)
+          @user = User.where(:username => params[:username]).first
+          @selection = ActivityOptionUser.new(:user_id => @user.id, :selected_option_id => @option.id)
+
+          if @selection.save
+            present @selection, :with => APIEntities::Activity
+          end
+        end
+      end
+
+      desc "Report for Activity"
+      post "report" do
+      end
+
+      desc "Like other participants of the same Activity"
+      post "like" do
       end
     end
 

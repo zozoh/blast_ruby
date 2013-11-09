@@ -1,4 +1,6 @@
 Event::Application.routes.draw do
+  resources :activity_types
+
   resources :tokens
 
   resources :activities do

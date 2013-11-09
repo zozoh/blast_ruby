@@ -16,7 +16,6 @@ class ActivitiesController < ApplicationController
   def save
     @option = ActivityOption.find(activity_params['options'])
     @user = User.where(:username => 'harryng').first
-    binding.pry
     ActivityOptionUser.create(:user_id => @user.id, :selected_option_id => @option.id)
 
     redirect_to @activity

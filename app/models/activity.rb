@@ -3,6 +3,7 @@ class Activity
   include Mongoid::Timestamps
 
   has_many :options, :class_name => 'ActivityOption'
+  has_one :type, :class_name => 'ActivityType'
 
   field :name, type: String
   field :activity_type, type: String
