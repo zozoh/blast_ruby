@@ -11,9 +11,6 @@
 </dl>
 <div>
 <%= simple_form_for @activity, :html => { :class => 'form-horizontal' }, :url => save_activity_path(@activity) do |f| %>
-  <%= f.simple_fields_for :user do |u| %>
-    <%= u.input :name %>
-  <% end %>
   <%= f.input :options, :collection => @activity.options.map{ |c| [c.option, c.id] } , :as => :radio_buttons %>
   <%= f.submit nil, :class => 'btn btn-success' %>
 <% end %>
@@ -27,7 +24,7 @@
         <table>
             <% o.users.each do |u| %>
               <tr>
-                <td><%= u.name %></td>
+                <td><%= u.user.name %></td>
               </tr>
             <% end %> 
         </table>

@@ -1,11 +1,23 @@
-<p id="notice"><%= notice %></p>
+<%- model_class = Token -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+</div>
 
-<p>
-  <strong>Token:</strong>
-  <%= @token.token %>
-  <strong>Type:</strong>
-  <%= @token.type %>
-</p>
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:token) %>:</strong></dt>
+  <dd><%= @token.token %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:type) %>:</strong></dt>
+  <dd><%= @token.type %></dd>
+</dl>
 
-<%= link_to 'Edit', edit_token_path(@token) %> |
-<%= link_to 'Back', tokens_path %>
+<div class="form-actions">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              tokens_path, :class => 'btn'  %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_token_path(@token), :class => 'btn' %>
+  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              token_path(@token),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
+</div>
