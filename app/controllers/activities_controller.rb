@@ -37,8 +37,8 @@ class ActivitiesController < ApplicationController
     ActivityOption.create(:option => @activity.option2, :activity_id => @activity.id)
     ActivityOption.create(:option => @activity.option3, :activity_id => @activity.id)
     
-    url = Googl.shorten('http://localhost:3000/activities/' + @activity.id)
-    @activity.url = url.short_url
+    # url = Googl.shorten('http://localhost:3000/activities/' + @activity.id)
+    # @activity.url = url.short_url
     
     respond_to do |format|
       if @activity.save
