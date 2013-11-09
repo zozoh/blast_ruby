@@ -12,5 +12,9 @@ module Event
       expose :id, :name, :activity_type
       expose :options, using: APIEntities::ActivityOption
     end
+
+    class User < Grape::Entity
+      expose :name, :username
+    end
   end
 end

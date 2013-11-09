@@ -43,6 +43,15 @@ module Event
       end
     end
 
+    resource :users do
+      desc "Get the user list of the selected activity"
+      get do
+        required_attributes! [:activity_id]
+        @users = User.all
+        present @users, :with => APIEntities::User
+      end
+    end
+
     resource :tokens do
       desc "Set token for push notification"
       post "ios" do
