@@ -58,15 +58,23 @@ module Event
 
       desc "Vote for Activity with JSON request"
       post "vote" do
-        required_attributes! [:options, :username]
+        required_attributes! [:activity_id, :options, :username]
+        @user = User.where(:username => params[:username]).first
+
+        @activity = Activity.find(params[:activity_id])
+        @activity.options.each do |old|
+          ActivityOptionUser.where(:user_id => @user.id, :selected_option_id => old.id).delete
+        end
+
         params[:options].each do |o|
           @option = ActivityOption.find(o.to_s)
-          @user = User.where(:username => params[:username]).first
-          @selection = ActivityOptionUser.new(:user_id => @user.id, :selected_option_id => @option.id)
+          ActivityOptionUser.create(:user_id => @user.id, :selected_option_id => @option.id)
+        end
 
-          if @selection.save
-            present @selection, :with => APIEntities::Activity
-          end
+        @invited_user = ActivityUser.where(:activity_id => params[:activity_id], :user_id => @user.id).first
+        @invited_user.voted = true
+        if @invited_user.save
+          present @invited_user, :with => APIEntities::ActivityUser
         end
       end
 
