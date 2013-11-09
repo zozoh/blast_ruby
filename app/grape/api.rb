@@ -9,7 +9,6 @@ module Event
     helpers APIHelpers
 
     resource :activities do
-      desc "Get Activity Types"
       desc "Get Activity List"
       get do
         required_attributes! [:type]
@@ -17,6 +16,7 @@ module Event
         present @activities, :with => APIEntities::Activity
       end
 
+      desc "Get Activity Types"
       get "types" do
         @types = ActivityType.all
         present @types, :with => APIEntities::ActivityType
@@ -31,19 +31,27 @@ module Event
 
       desc "Post New Activity"
       post do
-        required_attributes! [:name, :option1, :option2, :option3]
+        required_attributes! [:name, :activity_type, :option1, :option2, :option3, :creator, :usernames]
         @activity = Activity.new
         @activity.name = params[:name]
         @activity.activity_type = params[:activity_type]
         @activity.option1 = params[:option1]
         @activity.option2 = params[:option2]
         @activity.option3 = params[:option3]
+        
+        @user = User.where(:username => params[:creator]).first
+        @activity.creator = @user
 
         ActivityOption.create(:option => @activity.option1, :activity_id => @activity.id)
         ActivityOption.create(:option => @activity.option2, :activity_id => @activity.id)
         ActivityOption.create(:option => @activity.option3, :activity_id => @activity.id)
 
         if @activity.save
+          params[:usernames].each do |u|
+            user = User.where(:username => u.to_s).first
+            ActivityUser.create(:activity_id => @activity.id, :user_id => user.id, :voted => false)
+          end
+
           present @activity, :with => APIEntities::Activity
         end
       end
@@ -63,7 +71,7 @@ module Event
       end
 
       desc "Report for Activity"
-      post "report" do
+      get "report" do
       end
 
       desc "Like other participants of the same Activity"
