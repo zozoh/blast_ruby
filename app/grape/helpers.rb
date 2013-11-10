@@ -39,11 +39,8 @@ module Event
       error!({'message' => message}, status)
     end
 
-    def good_request!(attribute, message = nil)
-      if message.nil?
-        message = 'Success'
-      end
-      body({ status: true, message: message, data: attribute })
+    def good_request!(attribute)
+      body({ status: true, message: 'Success', data: attribute })
     end
 
     def no_change!
