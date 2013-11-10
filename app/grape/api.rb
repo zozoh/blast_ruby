@@ -105,7 +105,7 @@ module Event
         @token.token = params[:token]
         @token.user = @user
         @token.type = 'ios'
-        if @token.upsert
+        if @token.save
           good_request!(present @token, :with => APIEntities::Token)
         else
           no_change!
@@ -119,7 +119,7 @@ module Event
         @token.token = params[:token]
         @token.user = @user
         @token.type = 'android'
-        if @token.upsert
+        if @token.save
           good_request!(present @token, :with => APIEntities::Token)
         else
           no_change!
