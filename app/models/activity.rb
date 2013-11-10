@@ -32,7 +32,7 @@ class Activity
   end
 
   def push_message
-    "Event #{self.name} is created"
+    "Your friend #{self.creator.name} created Event #{self.name}"
   end
 
   def push_to_apns(token)
