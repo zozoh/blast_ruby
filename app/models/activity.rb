@@ -21,14 +21,13 @@ class Activity
     invited_users.each do |u|
       u.user.tokens.each do |t|
         if t.type == 'ios'
-          apns_list.push(APNS::Notification.new(t.token, self.push_message ))
+          push_to_apns(t.token)
         elsif t.type == 'android'
           gcm_list.push(t.token)
         end
       end
     end
 
-    push_to_apns(apns_list)
     push_to_gcm(gcm_list)
   end
 
@@ -36,7 +35,7 @@ class Activity
     "Event #{self.name} is created"
   end
 
-  def push_to_apns(apns_list)
+  def push_to_apns(token)
     APNS.host = Settings.apns_host
     # gateway.sandbox.push.apple.com is default
 
@@ -46,9 +45,7 @@ class Activity
     APNS.port = 2195
     # this is also the default. Shouldn't ever have to set this, but just in case Apple goes crazy, you can.
 
-    if apns_list.count > 0
-      APNS.send_notifications(apns_list)
-    end
+    APNS.send_notification(token, self.push_message )
   end
 
   def push_to_gcm(gcm_list)
