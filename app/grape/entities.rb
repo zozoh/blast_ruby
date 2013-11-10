@@ -9,8 +9,13 @@ module Event
       expose :user, using: APIEntities::User
     end
 
+    class ActivityOptionUser < Grape::Entity
+      expose :user, using: APIEntities::User
+    end
+
     class ActivityOption < Grape::Entity
       expose :id, :option
+      expose :users, using: APIEntities::ActivityOptionUser
     end
 
     class ActivityUser < Grape::Entity
