@@ -17,7 +17,7 @@ gem 'resque-web', require: 'resque_web'
 
 #uploader
 gem "carrierwave", "0.9.0"
-gem 'carrierwave-mongoid', '0.6.3'
+gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 
 # Settings
 gem 'settingslogic'
