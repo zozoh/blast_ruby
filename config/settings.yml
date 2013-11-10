@@ -43,8 +43,10 @@ defaults: &defaults
 
 development:
   <<: *defaults
-  apns_host: 'gateway.sandbox.push.apple.com'
-  apns_path: '/Users/harryng/Desktop/Desktop/Midland/cert.pem'
+  apns_host: 'gateway.push.apple.com'
+  # apns_path: '/Users/harryng/Documents/workspace/rails/event/config/cert/cert_prod.pem'
+  # apns_path: '/Users/harryng/Desktop/Desktop/Midland/cert.pem'
+  apns_path: '/var/www/collect.im/config/cert/cert_prod.pem'
 
   sms: []
   email:
