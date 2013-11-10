@@ -10,6 +10,15 @@ gem 'rails', '4.0.0'
 gem 'apns'
 gem 'gcm'
 
+# Resque
+gem 'resque', '1.25.1', :require => "resque/server"
+gem 'resque_mailer', '2.2.4'
+gem 'resque-web', require: 'resque_web'
+
+#uploader
+gem "carrierwave", "0.9.0"
+gem 'carrierwave-mongoid', '0.6.3'
+
 # Settings
 gem 'settingslogic'
 
