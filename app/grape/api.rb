@@ -13,20 +13,20 @@ module Event
       get do
         required_attributes! [:type]
         @activities = Activity.where({})
-        present @activities, :with => APIEntities::SimpleActivity
+        good_request!(present @activities, :with => APIEntities::SimpleActivity)
       end
 
       desc "Get Activity Types"
       get "types" do
         @types = ActivityType.all
-        present @types, :with => APIEntities::ActivityType
+        good_request!(present @types, :with => APIEntities::ActivityType)
       end
 
       desc "Get one Activity"
       get "show" do
         required_attributes! [:id]
         @activity = Activity.find(params[:id])
-        present @activity, :with => APIEntities::Activity
+        good_request!(present @activity, :with => APIEntities::Activity)
       end
 
       desc "Post New Activity"
@@ -52,7 +52,7 @@ module Event
             ActivityUser.create(:activity_id => @activity.id, :user_id => user.id, :voted => false)
           end
 
-          present @activity, :with => APIEntities::Activity
+          good_request!(present @activity, :with => APIEntities::Activity)
         end
       end
 
@@ -74,7 +74,7 @@ module Event
         @invited_user = ActivityUser.where(:activity_id => params[:activity_id], :user_id => @user.id).first
         @invited_user.voted = true
         if @invited_user.save
-          present @invited_user, :with => APIEntities::ActivityUser
+          good_request!(present @invited_user, :with => APIEntities::ActivityUser)
         end
       end
 
@@ -92,29 +92,37 @@ module Event
       get do
         required_attributes! [:activity_id]
         @users = User.all
-        present @users, :with => APIEntities::User
+        good_request!(present @users, :with => APIEntities::User)
       end
     end
 
     resource :tokens do
       desc "Set token for push notification"
       post "ios" do
-        required_attributes! [:token]
+        required_attributes! [:token, :username]
+        @user = User.where(:username => params[:username]).first
         @token = Token.new
-        @token.token = params[:token];
+        @token.token = params[:token]
+        @token.user = @user
         @token.type = 'ios'
-        if @token.save
-          present @token, :with => APIEntities::Token
+        if @token.upsert
+          good_request!(present @token, :with => APIEntities::Token)
+        else
+          no_change!
         end
       end
 
       post "android" do
-        required_attributes! [:token]
+        required_attributes! [:token, :username]
+        @user = User.where(:username => params[:username]).first
         @token = Token.new
-        @token.token = params[:token];
+        @token.token = params[:token]
+        @token.user = @user
         @token.type = 'android'
-        if @token.save
-          present @token, :with => APIEntities::Token
+        if @token.upsert
+          good_request!(present @token, :with => APIEntities::Token)
+        else
+          no_change!
         end
       end
     end

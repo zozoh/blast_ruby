@@ -1,11 +1,12 @@
 module Event
   module APIEntities
-    class Token < Grape::Entity
-      expose :token, :type
-    end
-
     class User < Grape::Entity
       expose :name, :username
+    end
+
+    class Token < Grape::Entity
+      expose :token, :type
+      expose :user, using: APIEntities::User
     end
 
     class ActivityOption < Grape::Entity

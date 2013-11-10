@@ -6,6 +6,7 @@ class User
   has_many :invited_activities, :class_name => 'ActivityUser'
   has_many :created_activities, :class_name => 'Activity'
   has_many :options, :class_name => 'ActivityOptionUser'
+  has_many :tokens
 
   field :name, type: String
   field :username, type: String

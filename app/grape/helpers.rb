@@ -38,5 +38,16 @@ module Event
     def render_api_error!(message, status)
       error!({'message' => message}, status)
     end
+
+    def good_request!(attribute, message = nil)
+      if message.nil?
+        message = 'Success'
+      end
+      body({ status: true, message: message, data: attribute })
+    end
+
+    def no_change!
+      body({ status: true, message: 'No change' })
+    end
   end
 end
