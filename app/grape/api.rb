@@ -12,7 +12,7 @@ module Event
       desc "Get Activity List"
       get do
         required_attributes! [:type]
-        @activities = Activity.where({})
+        @activities = Activity.where({}).desc(:created_at)
         good_request!(present @activities, :with => APIEntities::SimpleActivity)
       end
 
