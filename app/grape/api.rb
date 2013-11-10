@@ -47,9 +47,11 @@ module Event
         ActivityOption.create(:option => @activity.option3, :activity_id => @activity.id)
 
         if @activity.save
-          params[:usernames].each do |u|
+          params[:usernames].split(',').each do |u|
             user = User.where(:username => u.to_s).first
-            ActivityUser.create(:activity_id => @activity.id, :user_id => user.id, :voted => false)
+            unless user.nil?
+              ActivityUser.create(:activity_id => @activity.id, :user_id => user.id, :voted => false)
+            end
           end
 
           good_request!(present @activity, :with => APIEntities::Activity)
