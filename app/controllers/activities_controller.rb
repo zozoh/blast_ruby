@@ -11,6 +11,7 @@ class ActivitiesController < ApplicationController
   # GET /activities/1.json
   def show
     @user = User.new
+    @activity.push
   end
 
   def save

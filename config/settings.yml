@@ -44,7 +44,7 @@ defaults: &defaults
 development:
   <<: *defaults
   apns_host: 'gateway.sandbox.push.apple.com'
-  apns_path: '/Users/Midland/Dropbox/AppStore/certificate/MAM/pem'
+  apns_path: '/Users/harryng/Desktop/Desktop/Midland/cert.pem'
 
   sms: []
   email:

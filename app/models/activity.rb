@@ -15,18 +15,28 @@ class Activity
   field :option3, type: Time
 
   def push
-    if apk?
-      push_to_gcm
-    elsif ipa?
-      push_to_apns
+    apns_list = Array.new
+    gcm_list = Array.new
+
+    invited_users.each do |u|
+      u.user.tokens.each do |t|
+        if t.type == 'ios'
+          apns_list.push(APNS::Notification.new(t.token, self.push_message ))
+        elsif t.type == 'android'
+          gcm_list.push(t.token)
+        end
+      end
     end
+
+    push_to_apns(apns_list)
+    push_to_gcm(gcm_list)
   end
 
   def push_message
-    "#{self.name} is updated to v#{self.version_name}"
+    "Event #{self.name} is created"
   end
 
-  def push_to_apns
+  def push_to_apns(apns_list)
     APNS.host = Settings.apns_host
     # gateway.sandbox.push.apple.com is default
 
@@ -36,28 +46,17 @@ class Activity
     APNS.port = 2195
     # this is also the default. Shouldn't ever have to set this, but just in case Apple goes crazy, you can.
 
-    notifications = Array.new
-
-    @tokens = Token.where(:type => 'ios')
-    @tokens.each do |t|
-      notifications.push(APNS::Notification.new(t.token, self.push_message ))
-    end
-    if notifications.count > 0
-      APNS.send_notifications(notifications)
+    if apns_list.count > 0
+      APNS.send_notifications(apns_list)
     end
   end
 
-  def push_to_gcm
+  def push_to_gcm(gcm_list)
     gcm = GCM.new(Settings.gcm_api_key)
-    registration_ids = Array.new # an array of one or more client registration IDs
-    @tokens = Token.where(:type => 'android')
-    @tokens.each do |t|
-      registration_ids.push(t.token)
-    end
     options = {data: {message: self.push_message}, collapse_key: "message"}
 
-    if registration_ids.count > 0
-      response = gcm.send_notification(registration_ids, options)
+    if gcm_list.count > 0
+      response = gcm.send_notification(gcm_list, options)
     end
   end
 
