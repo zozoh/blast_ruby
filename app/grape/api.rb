@@ -80,6 +80,18 @@ module Event
         end
       end
 
+      desc "Comment for Activity with JSON request"
+      post "comment" do
+        required_attributes! [:activity_id, :comment, :username]
+        @user = User.where(:username => params[:username]).first
+
+        @comment = ActivityComment.new(:activity_id => params[:activity_id], :user_id => @user.id, :comment => params[:comment])
+
+        if @comment.save
+          good_request!(present @comment, :with => APIEntities::ActivityComment)
+        end
+      end
+
       desc "Report for Activity"
       get "report" do
       end

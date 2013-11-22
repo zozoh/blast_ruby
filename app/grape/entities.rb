@@ -23,6 +23,11 @@ module Event
       expose :user, using: APIEntities::User
     end
 
+    class ActivityComment < Grape::Entity
+      expose :comment
+      expose :user, using: APIEntities::User
+    end
+
     class SimpleActivity < Grape::Entity
       expose :id, :name, :activity_type
       expose :creator, using: APIEntities::User
@@ -31,6 +36,7 @@ module Event
     class Activity < APIEntities::SimpleActivity
       expose :options, using: APIEntities::ActivityOption
       expose :invited_users, using: APIEntities::ActivityUser
+      expose :comments, using: APIEntities::ActivityComment
     end
 
     class ActivityType < Grape::Entity

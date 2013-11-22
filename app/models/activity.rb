@@ -4,6 +4,7 @@ class Activity
 
   has_many :options, :class_name => 'ActivityOption'
   has_many :invited_users, :class_name => 'ActivityUser'
+  has_many :comments, :class_name => 'ActivityComment'
   has_one :type, :class_name => 'ActivityType'
   belongs_to :creator, :class_name => 'User'
 
