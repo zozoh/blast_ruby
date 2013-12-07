@@ -2,11 +2,13 @@ class Blast
   include Mongoid::Document
   include Mongoid::Timestamps
 
+  has_one :pic, :class_name => 'Picture'
+
   has_many :reblasts
 
   field :ow, 			type: String # owner
   field :cnt, 		type: String # content
-  field :pic, 		type: String # picture
+  # field :pic, 		type: String # picture
   field :picurl, 	type: String # picurl
   field :lv, 			type: Integer # live
 

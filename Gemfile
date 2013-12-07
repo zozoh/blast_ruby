@@ -19,8 +19,10 @@ gem 'resque_mailer', '2.2.4'
 gem 'resque-web', require: 'resque_web'
 
 #uploader
-gem "carrierwave", "0.9.0"
-gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
+# gem "carrierwave", "0.9.0"
+# gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
+gem 'paperclip'
+gem "mongoid-paperclip", :require => "mongoid_paperclip"
 
 # Settings
 gem 'settingslogic'

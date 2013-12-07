@@ -43,10 +43,14 @@ module Event
       expose :name, :type
     end
 
+    class Picture < Grape::Entity
+      expose :attachment
+    end
+
     class Blast < Grape::Entity
       expose :ow  , as: :owner
       expose :lo  , as: :location
-      expose :pic , as: :picture
+      expose :pic , using: APIEntities::Picture, as: :picture
       expose :picurl
       expose :cnt , as: :content
       expose :lv  , as: :live
