@@ -8,6 +8,19 @@ module Event
 
     helpers APIHelpers
 
+    resource :blasts do
+      desc "Get Blast List"
+      get do
+        required_attributes! [:lon, :lat, :n]
+        result = []
+        Blast.limit(params[:n].to_i).geo_near([params[:lon].to_f, params[:lat].to_f]).max_distance(0.005).each do |blast|
+          result << blast
+          # binding.pry
+        end
+        good_request!(present result, :with => APIEntities::Blast)
+      end
+    end
+
     resource :activities do
       desc "Get Activity List"
       get do

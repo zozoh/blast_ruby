@@ -6,6 +6,9 @@ gem 'rails', '4.0.0'
 # Use sqlite3 as the database for Active Record
 # gem 'sqlite3'
 
+gem 'countries'
+gem 'country_select'
+
 # Push Notification
 gem 'apns'
 gem 'gcm'
@@ -28,6 +31,8 @@ gem 'grape-entity'
 
 # Use mongodb
 gem 'mongoid', git: 'git://github.com/mongoid/mongoid.git'
+# gem "geocoder"
+# gem 'mongoid_geospatial', git: 'git://github.com/kristianmandrup/mongoid_geospatial'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'

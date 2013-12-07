@@ -42,5 +42,16 @@ module Event
     class ActivityType < Grape::Entity
       expose :name, :type
     end
+
+    class Blast < Grape::Entity
+      expose :ow  , as: :owner
+      expose :lo  , as: :location
+      expose :pic , as: :picture
+      expose :picurl
+      expose :cnt , as: :content
+      expose :lv  , as: :live
+      expose :created_at, as: :createTime
+      expose :updated_at, as: :lastModified
+    end
   end
 end

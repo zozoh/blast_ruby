@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @blast.cnt %>
+</p>
+
+<p>
+  <strong>Picture:</strong>
+  <%= @blast.pic %>
+</p>
+
+<%= link_to 'Edit', edit_blast_path(@blast) %> |
+<%= link_to 'Back', blasts_path %>

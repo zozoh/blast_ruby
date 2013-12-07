@@ -5,6 +5,10 @@ class ActivitiesController < ApplicationController
   # GET /activities.json
   def index
     @activities = Activity.all.desc(:created_at)
+    binding.pry
+    Country.all do |e|
+      c = Country.find_country_by_alpha2(e[0])
+    end
   end
 
   # GET /activities/1

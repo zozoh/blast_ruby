@@ -1,0 +1,29 @@
+<h1>Listing blasts</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Content</th>
+      <th>Picture</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @blasts.each do |blast| %>
+      <tr>
+        <td><%= blast.cnt %></td>
+        <td><%= blast.pic %></td>
+        <td><%= link_to 'Show', blast %></td>
+        <td><%= link_to 'Edit', edit_blast_path(blast) %></td>
+        <td><%= link_to 'Destroy', blast, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Blast', new_blast_path %>

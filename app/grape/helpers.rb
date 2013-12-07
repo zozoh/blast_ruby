@@ -40,11 +40,11 @@ module Event
     end
 
     def good_request!(attribute)
-      body({ status: true, message: 'Success', data: attribute })
+      body({ ok: true, msg: 'Success', data: attribute })
     end
 
     def no_change!
-      body({ status: true, message: 'No change' })
+      body({ ok: true, msg: 'No change' })
     end
   end
 end
