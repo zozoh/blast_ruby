@@ -5,8 +5,12 @@ class Picture
 
   belongs_to :blast
 
+  field :attachment_file_name, type: String
+
   has_mongoid_attached_file :attachment,
-    :path           => ':attachment/:id/:style.:extension',
+  	:url  => "/assets/pictures/:id/:style/:basename.:extension",
+  	:path => ":rails_root/public/assets/pictures/:id/:style/:basename.:extension",
+    # :path           => ':attachment/:id/:style.:extension',
     :styles => {
       :original => ['1920x1680>', :jpg],
       :small    => ['100x100#',   :jpg],

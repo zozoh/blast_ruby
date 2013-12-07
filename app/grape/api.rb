@@ -19,6 +19,30 @@ module Event
         end
         good_request!(present result, :with => APIEntities::Blast)
       end
+
+      desc "Upload image"
+      post "new" do
+        image = params[:image]
+
+        attachment = {
+          :filename     => image[:filename],
+          :type         => image[:type],
+          :headers      => image[:head],
+          :tempfile     => image[:tempfile]
+        }
+
+        @picture = Picture.new
+
+        @picture.attachment = attachment[:tempfile]
+
+        @picture.attachment_file_name = attachment[:filename]
+
+        # binding.pry
+
+        if @picture.save
+          good_request!(present @picture, :with => APIEntities::Picture)
+        end
+      end
     end
 
     resource :activities do

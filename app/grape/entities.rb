@@ -45,6 +45,7 @@ module Event
 
     class Picture < Grape::Entity
       expose :attachment
+      expose :attachment_file_name
     end
 
     class Blast < Grape::Entity

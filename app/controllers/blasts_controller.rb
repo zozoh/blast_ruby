@@ -23,6 +23,8 @@ class BlastsController < ApplicationController
   # GET /blasts/1.json
   def show
     @blasts = Blast.limit(1).geo_near([116.4154, 39.9372]).max_distance(0.005)
+
+    @picture = Picture.where({:attachment_file_name => 'icon.png'}).last
     binding.pry
   end
 
