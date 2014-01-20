@@ -1,6 +1,7 @@
 #coding:utf-8
 require "entities"
 require "helpers"
+require "time"
 module Event
   class API < Grape::API
     default_format :json
@@ -42,6 +43,58 @@ module Event
         if @picture.save
           good_request!(present @picture, :with => APIEntities::Picture)
         end
+      end
+
+      desc "graph"
+      get "graph" do
+        output = {}
+        result = []
+
+        point1 = {:location => [116.4154, 39.9372], :reblaNumber => 38, :createTime => Time.parse("Sat Dec 7 20:51:18 +0800 2013").to_i}
+        result << point1
+        case rand(5)
+        when 0
+          point2 = {:location => [116.2154, 39.5372], :reblaNumber => 89, :createTime => Time.parse("Sat Dec 7 21:28:18 +0800 2013").to_i}
+          point3 = {:location => [116.0154, 39.2372], :reblaNumber => 126, :createTime => Time.parse("Sat Dec 7 22:22:18 +0800 2013").to_i}
+          point4 = {:location => [115.8154, 39.0372], :reblaNumber => 387, :createTime => Time.parse("Sat Dec 7 23:10:18 +0800 2013").to_i}
+          point5 = {:location => [115.4154, 39.0372], :reblaNumber => 916, :createTime => Time.parse("Sat Dec 7 23:51:18 +0800 2013").to_i}
+          output[:total] = 1556
+          output[:size] = 3
+        when 1
+          point2 = {:location => [115.89, 39.5372], :reblaNumber => 111, :createTime => Time.parse("Sat Dec 7 21:28:18 +0800 2013").to_i}
+          point3 = {:location => [115.28, 39.0372], :reblaNumber => 250, :createTime => Time.parse("Sat Dec 7 22:22:18 +0800 2013").to_i}
+          point4 = {:location => [114.39, 38.4372], :reblaNumber => 581, :createTime => Time.parse("Sat Dec 7 23:10:18 +0800 2013").to_i}
+          point5 = {:location => [114.00, 38.0372], :reblaNumber => 616, :createTime => Time.parse("Sat Dec 7 23:51:18 +0800 2013").to_i}
+          output[:total] = 1596
+          output[:size] = 8
+        when 2
+          point2 = {:location => [116.2154, 39.5372], :reblaNumber => 89, :createTime => Time.parse("Sat Dec 7 21:28:18 +0800 2013").to_i}
+          point3 = {:location => [115.0154, 38.8372], :reblaNumber => 180, :createTime => Time.parse("Sat Dec 7 22:22:18 +0800 2013").to_i}
+          point4 = {:location => [114.6154, 37.0372], :reblaNumber => 267, :createTime => Time.parse("Sat Dec 7 23:10:18 +0800 2013").to_i}
+          point5 = {:location => [113.2154, 36.3372], :reblaNumber => 616, :createTime => Time.parse("Sat Dec 7 23:51:18 +0800 2013").to_i}
+          output[:total] = 1190
+          output[:size] = 8
+        when 3
+          point2 = {:location => [116.2154, 39.5372], :reblaNumber => 89, :createTime => Time.parse("Sat Dec 7 21:28:18 +0800 2013").to_i}
+          point3 = {:location => [115.6154, 40.2372], :reblaNumber => 200, :createTime => Time.parse("Sat Dec 7 22:22:18 +0800 2013").to_i}
+          point4 = {:location => [115.2154, 38.7372], :reblaNumber => 300, :createTime => Time.parse("Sat Dec 7 23:10:18 +0800 2013").to_i}
+          point5 = {:location => [114.6154, 38.2372], :reblaNumber => 400, :createTime => Time.parse("Sat Dec 7 23:51:18 +0800 2013").to_i}
+          output[:total] = 1027
+          output[:size] = 8
+        when 4
+          point2 = {:location => [116.2154, 39.5372], :reblaNumber => 100, :createTime => Time.parse("Sat Dec 7 21:28:18 +0800 2013").to_i}
+          point3 = {:location => [115.5154, 38.5372], :reblaNumber => 200, :createTime => Time.parse("Sat Dec 7 22:22:18 +0800 2013").to_i}
+          point4 = {:location => [114.8154, 38.0372], :reblaNumber => 400, :createTime => Time.parse("Sat Dec 7 23:10:18 +0800 2013").to_i}
+          point5 = {:location => [113.4154, 37.6372], :reblaNumber => 600, :createTime => Time.parse("Sat Dec 7 23:51:18 +0800 2013").to_i}
+          output[:total] = 1338
+          output[:size] = 15
+        end
+        result << point2
+        result << point3
+        result << point4
+        result << point5
+        output[:data] = result
+        output
       end
     end
 
